@@ -1,0 +1,66 @@
+﻿@using MbmStore.Models;
+@using MbmStore.Infrastructure;
+@model ProductsListViewModel
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>MbmStore Catalogue</title>
+</head>
+
+
+
+<body>
+
+    @if (Model.Products.OfType<Book>().ToList().Count > 0)
+    {
+
+        <h2>Books</h2>
+
+        @foreach (Book book in Model.Products.OfType<Book>().ToList())
+        {
+            @await Html.PartialAsync("_ProductSummaryBook", book)
+        }
+
+
+        <br />
+        <br />
+    }
+    @if (Model.Products.OfType<MusicCD>().ToList().Count > 0)
+    {
+
+        <h2>CDs</h2>
+
+        @foreach (MusicCD cd in Model.Products.OfType<MusicCD>().ToList())
+        {
+            @await Html.PartialAsync("_ProductSummaryMusicCD", cd)
+        }
+
+
+        <br />
+        <br />
+    }
+    @if (Model.Products.OfType<Movie>().ToList().Count > 0)
+    {
+
+        <h2>Movies</h2>
+
+        @foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
+        {
+            @await Html.PartialAsync("_ProductSummaryMovie", movie)
+
+        }
+    }
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-secondary"
+         page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+         class="btn-group pull-right m-1">
+    </div>
+
+</body>
+</html>
